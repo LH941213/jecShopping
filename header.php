@@ -17,6 +17,10 @@
         <a href="index.php">
             <img src="./images/JecShoppingLogo.jpg" alt="JEC Shoppingロゴ" />
         </a>
+        <form action="index.php" method="get">
+            <input type="text" name="keyword"/>
+            <input type="submit" value="検索" />
+        </form>
     </div>
     <div id="link">
         <?php if(isset($member)):?>

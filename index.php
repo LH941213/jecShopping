@@ -6,10 +6,15 @@
      $goodsgroup_list = $goodsGroupDAO->get_goodsgroup();
      $goodsDAO=new GoodsDAO();
     $goods_list = $goodsDAO->get_recommend_goods();
+    $keyword = "";
     if (isset($_GET['groupcode'])) {
         $groupcode = $_GET['groupcode'];
         $goods_list = $goodsDAO->get_goods_by_groupcode($groupcode);
-    } else {
+    }else if (isset($_GET['keyword'])) {
+        $keyword = $_GET['keyword'];
+        $keyword = htmlspecialchars($keyword, ENT_QUOTES, 'UTF-8');
+        $goods_list = $goodsDAO->get_goods_by_keyword($keyword);
+    }else {
         $goods_list = $goodsDAO->get_recommend_goods();
     }
 ?>
@@ -22,11 +27,12 @@
 </head>
 <body>
     <?php include "header.php"; ?>
+    検索結果:<?= $keyword?>
     <table id="goodsgroup">
         <?php foreach ($goodsgroup_list as $goodsgroup): ?>
             <tr>
                 <td>
-                    <!--  -->
+                    
                     <a href="index.php?groupcode=<?= $goodsgroup->groupcode ?>">
                      <?= $goodsgroup->groupname ?>
                     </a>
